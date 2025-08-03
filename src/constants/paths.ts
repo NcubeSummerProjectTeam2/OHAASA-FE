@@ -3,4 +3,5 @@
  */
 export const PATHS = {
   MAIN: '/',
+  RESULT : '/result',
 } as const;
