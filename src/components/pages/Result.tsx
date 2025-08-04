@@ -19,7 +19,10 @@ const Result: React.FC = () => {
       <BottomDecoration src={bottomImage} alt="장식 이미지 아래" />
 
       <ButtonGroup>
-        <Button onClick={() => navigate(PATHS.MAIN)}>다시하기</Button>
+        <Button onClick={() => {
+          localStorage.removeItem("resultMessage");
+          navigate(PATHS.MAIN)
+          }}>다시하기</Button>
         <Button
           onClick={() => {
             if (navigator.share) {
