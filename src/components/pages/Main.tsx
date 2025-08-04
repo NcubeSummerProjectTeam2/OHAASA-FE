@@ -13,7 +13,7 @@ const Main: React.FC = () => {
   return (
     <Wrapper>
       <Logo src={logoImage} alt="오하아사 로고" />
-      <Description><br /><br />오늘의 운세를 확인해보세요 !</Description>
+      <Description>오늘의 운세를 확인해보세요 !</Description>
       <StartButton src={buttonImage} alt="확인하기 버튼" onClick={() => navigate(PATHS.INPUT)} />
     </Wrapper>
   );
@@ -34,9 +34,9 @@ const Wrapper = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 80%;
-  max-width: 300px;
-  margin-bottom: 24px;
+  width: 100%;
+  max-width: 550px;
+  margin-bottom: 10px;
 `;
 
 const Description = styled.p`
