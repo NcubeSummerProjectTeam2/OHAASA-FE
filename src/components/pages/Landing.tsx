@@ -32,8 +32,8 @@ const Wrapper = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 70%;
-  max-width: 320px;
+  width: 100%;
+  max-width: 550px;
 `;
 
 export default Landing;

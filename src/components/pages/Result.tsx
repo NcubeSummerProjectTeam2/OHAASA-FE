@@ -60,31 +60,31 @@ const Wrapper = styled.div`
 `;
 
 const TopDecoration = styled.img`
-  width: 400px;
-  margin-bottom: 10px;
-`;
-
-const BottomDecoration = styled.img`
-  width: 400px;
-  margin-top: 10px;
+  width: 120%;
+  max-width: 600px;
+  margin-bottom: 0;
 `;
 
 const MessageBox = styled.div`
-  background-color: rgba(255, 255, 255, 0.9);
-  font-size: 1rem;
-  padding: 20px;
-  border-radius: 16px;
+  margin: 0;
+  padding: 0;
   text-align: center;
-  color: #333;
-  max-width: 320px;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.7;
   white-space: pre-line;
-  line-height: 1.6;
+`;
+
+const BottomDecoration = styled.img`
+  width: 120%;
+  max-width: 600px;
+  margin-top: 0;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   gap: 12px;
-  margin-top: 40px;
+  margin-top: 2px;
 `;
 
 const Button = styled.button`
