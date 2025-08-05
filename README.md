@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# REACT Frontend + styled-component
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Component
 
-## Available Scripts
+- 공통 컴포넌트 만들 경우
+  - `src/components/common`에 컴포넌트 추가
+- 새로운 페이지를 만들 경우
+  - `src/constants/paths.ts`에 PATH 추가
+  - `main.tsx`에 routing 추가
+  - `src/components/page`에 새로운 페이지에 대한 컴포넌트 추가
+  - 부가적인 컴포넌트는 pages 폴더 밖에서 자유롭게 구조 선택
 
-In the project directory, you can run:
+## State Management (zustand)
 
-### `npm start`
+- stores의 형식을 보고 자유롭게 만들기 (immer를 쓸지 말지는 개발하는 사람 자유)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Styling (styled-components)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- 전체적인 color셋은 `src/theme/theme.ts`에 존재
+  - 사용방법: `color: ${(props) => props.theme.color.baseColor2};`
+  - `src/theme/GlobalStyle.tsx`의 body > color 적용된 것을 참고
+- 나머지는 알아서 진행
 
-### `npm test`
+## API (axios & react-query)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `src/api/_client.ts`에서 통합 client를 만들고 다른 곳에서 import하여 사용하는 방식입니다.
+- react-query를 활용한 구조는 `src/api/example.ts`를 참고 바랍니다. (어느정도 익숙해졌다 싶으면 해당 파일은 삭제해도 좋습니다.)
+- post, put, delete의 개념을 가진 useMutation은 제가 별로 사용하지 않아 axios로 그대로 호출 후, GET Query에 대해 InvalidQuery를 적용하는 편입니다. 허나 useMutation도 그대로 사용하신다면 그대로 사용하셔도 괜찮습니다.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 기술 스택
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Node.js v20.15.1
+- Base: React v18
+- Bundler: Vite v5
+- Language: TypeScript v5
+- Styling: styled-components v6
+- Status Management: zustand v4
+- HTTP w/server: axios v1.7 + TanStack Query v5
+- Package Manger: pnpm
+- Code Rule & Formatting: Prettier, eslint
