@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../constants/paths';
 
+
 import bgImage from '../../assets/landing-bg.png';
 import logoImage from '../../assets/logo.png';
 import buttonImage from '../../assets/start_button.png';
@@ -14,7 +15,7 @@ const Main: React.FC = () => {
     <Wrapper>
       <Logo src={logoImage} alt="오하아사 로고" />
       <Description>오늘의 운세를 확인해보세요 !</Description>
-      <StartButton src={buttonImage} alt="확인하기 버튼" onClick={() => navigate(PATHS.INPUT)} />
+      <StartButton src={buttonImage} alt="확인하기 버튼" onClick={() => navigate(PATHS.BIRTH)} />
     </Wrapper>
   );
 };

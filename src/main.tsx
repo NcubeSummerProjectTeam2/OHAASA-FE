@@ -7,8 +7,9 @@ import theme from './theme/theme.ts';
 import { PATHS } from './constants/paths.ts';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Landing from './components/pages/Landing.tsx';
-import Input from './components/pages/Input.tsx';
 import Main from './components/pages/Main.tsx';
+import BirthInput from './components/pages/BirthInput.tsx';
+import Input from './components/pages/Input.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Result from './components/pages/Result.tsx'
 
@@ -20,19 +21,23 @@ const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />, // 여기서 App.tsx가 Outlet 역할을 해줌
+    element: <App />, // 여기서 App.tsx가 Outlet 역할
     children: [
       {
         path: PATHS.LANDING,
         element: <Landing />,
       },
       {
-        path: PATHS.INPUT,
-        element: <Input />,
-      },
-      {
         path: PATHS.MAIN,
         element: <Main />,
+      },
+      {
+        path: PATHS.BIRTH,
+        element: <BirthInput />,
+      },
+      {
+        path: PATHS.INPUT,
+        element: <Input />,
       },
       {
         path: PATHS.RESULT,
