@@ -5,8 +5,8 @@ import { getRandomMessage } from '../../api/getRandomMessage';
 import { PATHS } from '../../constants/paths';
 
 import bgImage from '../../assets/landing-bg.png';
-import topImage from '../../assets/lineTop.png';
-import bottomImage from '../../assets/lineBottom.png';
+import topImage from '../../assets/lineTop2.png';
+import bottomImage from '../../assets/lineBottom2.png';
 
 const Result: React.FC = () => {
   const navigate = useNavigate();
@@ -60,31 +60,34 @@ const Wrapper = styled.div`
 `;
 
 const TopDecoration = styled.img`
-  width: 120%;
+  width: 80%;
   max-width: 600px;
-  margin-bottom: 0;
+  margin-bottom: 12px;
 `;
 
 const MessageBox = styled.div`
-  margin: 0;
+  margin: 10px;
   padding: 0;
   text-align: center;
   color: #fff;
   font-size: 1rem;
   line-height: 1.7;
   white-space: pre-line;
+
+  font-family: 'SUITE-Regular', sans-serif;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 `;
 
 const BottomDecoration = styled.img`
-  width: 120%;
+  width: 80%;
   max-width: 600px;
-  margin-top: 0;
+  margin-top: 12px;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   gap: 12px;
-  margin-top: 2px;
+  margin-top: 40px;
 `;
 
 const Button = styled.button`
@@ -100,6 +103,8 @@ const Button = styled.button`
   &:hover {
     background-color: #ffb347;
   }
+
+  font-family: 'SUITE-Regular', sans-serif;
 `;
 
 const Footer = styled.footer`

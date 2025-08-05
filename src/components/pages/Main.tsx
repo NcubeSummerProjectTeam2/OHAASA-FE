@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../constants/paths';
 
 import bgImage from '../../assets/landing-bg.png';
-import logoImage from '../../assets/rogo.png';
+import logoImage from '../../assets/logo.png';
 import buttonImage from '../../assets/start_button.png';
 
 const Main: React.FC = () => {
@@ -40,12 +40,14 @@ const Logo = styled.img`
 `;
 
 const Description = styled.p`
-  font-family: 'SWEET', sans-serif;
+  font-family: 'SUITE-Regular', sans-serif;
   font-size: 1.2rem;
   color: white;
   text-align: center;
   line-height: 1.6;
   margin-bottom: 32px;
+
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 `;
 
 const StartButton = styled.img`
