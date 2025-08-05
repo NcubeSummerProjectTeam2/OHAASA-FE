@@ -43,4 +43,8 @@ const usePersonStoreWithImmer = create<State & Action>()(
       }),
   }))
 );
+
+console.log(usePersonStore, usePersonStoreWithImmer); // 임시코드
+
+
 // type _UsePersonStoreWithImmerType = typeof usePersonStoreWithImmer;
