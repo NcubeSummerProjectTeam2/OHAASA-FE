@@ -1,46 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PATHS } from '../../constants/paths';
-import styled from 'styled-components';
+import QuestionPage from '../QuestionPage';
+import questions from '../../data/questions';
+
+type Answer = number | null;
 
 const Input: React.FC = () => {
+  const total = questions.length;
+
+  const [page, setPage] = useState<number>(1);
+  const [answers, setAnswers] = useState<Answer[]>(Array(total).fill(null));
+
   const navigate = useNavigate();
 
+  const handleSelect = (optionIndex: number) => {
+    setAnswers(prev => {
+      const next = [...prev];
+      next[page - 1] = optionIndex;
+      return next;
+    });
+  };
+
+  const handleNext = () => {
+    if (page < total) {
+      setPage(p => p + 1);
+    } else {
+      navigate('/result', {
+        state: { answers, total },
+        replace: false,
+      });
+    }
+  };
+
+  const handlePrev = () => {
+    setPage(p => Math.max(1, p - 1));
+  };
+
   return (
-    <Wrapper>
-      <Title>질문 페이지 (임시)</Title>
-      <ResultButton onClick={() => navigate(PATHS.RESULT)}>
-        결과 확인하기
-      </ResultButton>
-    </Wrapper>
+    <QuestionPage
+      question={questions[page - 1]}
+      page={page}
+      total={total}
+      selectedIndex={answers[page - 1]}
+      onSelect={handleSelect}
+      onNext={handleNext}
+      onPrev={handlePrev}
+    />
   );
 };
-
-const Wrapper = styled.div`
-  min-height: 100vh;
-  background-color: #fff8f1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Title = styled.h1`
-  font-size: 2rem;
-  margin-bottom: 32px;
-`;
-
-const ResultButton = styled.button`
-  font-size: 1rem;
-  padding: 12px 24px;
-  background-color: #ffcc70;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #ffb347;
-  }
-`;
 
 export default Input;
