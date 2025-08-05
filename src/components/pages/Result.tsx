@@ -7,6 +7,7 @@ import { PATHS } from '../../constants/paths';
 import bgImage from '../../assets/landing-bg.png';
 import topImage from '../../assets/lineTop2.png';
 import bottomImage from '../../assets/lineBottom2.png';
+import titleImage from '../../assets/resultTitle.png';
 
 const Result: React.FC = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Result: React.FC = () => {
 
   return (
     <Wrapper>
+      <TitleImage src={titleImage} alt="오늘의 운세 제목 이미지" />
       <TopDecoration src={topImage} alt="장식 이미지 위" />
       <MessageBox>{message}</MessageBox>
       <BottomDecoration src={bottomImage} alt="장식 이미지 아래" />
@@ -57,6 +59,11 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+const TitleImage = styled.img`
+  width: 150px;
+  margin-bottom: 16px;
 `;
 
 const TopDecoration = styled.img`
