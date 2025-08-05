@@ -27,7 +27,7 @@ const usePersonStore = create<State & Action>((set) => ({
   updateFirstName: (firstName) => set(() => ({ firstName: firstName })),
   updateLastName: (lastName) => set(() => ({ lastName: lastName })),
 }));
-type UsePersonStoreType = typeof usePersonStore;
+type _UsePersonStoreType = typeof usePersonStore;
 
 // Immer 사용 시 아래와 같이 사용
 const usePersonStoreWithImmer = create<State & Action>()(
@@ -43,4 +43,4 @@ const usePersonStoreWithImmer = create<State & Action>()(
       }),
   }))
 );
-type UsePersonStoreWithImmerType = typeof usePersonStoreWithImmer;
+type _UsePersonStoreWithImmerType = typeof usePersonStoreWithImmer;
