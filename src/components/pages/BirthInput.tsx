@@ -71,12 +71,6 @@ const Instruction = styled.p`
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 `;
 
-const StarDivider = styled.div`
-  margin: 10px 0 30px;
-  font-size: 18px;
-  color: white;
-`;
-
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
