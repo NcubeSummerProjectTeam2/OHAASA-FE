@@ -67,8 +67,8 @@ const Container = styled.div`
 `;
 
 const Constellation = styled.img`
-  width: 200px;
-  margin-top: 60px;
+  width: 250px;
+  margin-top: 30px;
   margin-bottom: 60px;
 `;
 
@@ -90,7 +90,7 @@ const InputContainer = styled.div`
 
 const LineImage = styled.img`
   width: 300px;
-  margin: 30px 0;
+  margin: 30px 30px;
 `;
 
 const InputBox = styled.input`
@@ -128,7 +128,7 @@ const Label = styled.div`
 const NextButton = styled.img`
   position: absolute;
   bottom: 30px;
-  right: 50px;
+  right: 20px;
   width: 80px;
   cursor: pointer;
 `;

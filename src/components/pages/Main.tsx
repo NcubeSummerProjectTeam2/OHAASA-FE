@@ -5,7 +5,7 @@ import { PATHS } from '../../constants/paths';
 
 
 import bgImage from '../../assets/landing-bg.png';
-import logoImage from '../../assets/logo.png';
+import logoImage from '../../assets/landing-logo.png';
 import buttonImage from '../../assets/start_button.png';
 
 const Main: React.FC = () => {
@@ -46,9 +46,10 @@ const Description = styled.p`
   color: white;
   text-align: center;
   line-height: 1.6;
-  margin-bottom: 32px;
+  margin-bottom: 7px;
 
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  }
 `;
 
 const StartButton = styled.img`
