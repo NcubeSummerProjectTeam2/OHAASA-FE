@@ -5,6 +5,7 @@ const axios = require("axios");
 const app = express();
 app.use(cors({
   origin: "https://ohaasa-fe.vercel.app", // 프론트 배포 주소
+  methods: ["GET", "POST"], 
   credentials: true
 }));
 
