@@ -16,6 +16,11 @@ const zodiacToNum: { [key: string]: string } = {
 export async function getTodayHoroscope(zodiac: string) {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/api/horoscope?zodiac=${zodiac}`);
 
+  if (!response.ok) {
+    console.error("서버에서 오류 응답:", response.status);
+    throw new Error("서버 오류: " + response.status);
+  }
+
   const data = await response.json();
   console.log("백엔드 응답 data :", data);
 
