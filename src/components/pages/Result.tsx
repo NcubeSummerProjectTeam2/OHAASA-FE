@@ -1,12 +1,12 @@
 import React from 'react';
+import { useEffect, useState } from "react";
 import styled from 'styled-components';
-
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { getRandomMessage } from '../../api/getRandomMessage';
-import { PATHS } from '../../constants/paths';
 import { getZodiacSign } from '../../utils/zodiac';
 import { getTodayHoroscope } from '../../api/getHoroscope';
-import { useEffect, useState } from "react";
+import { PATHS } from '../../constants/paths';
 
 
 import bgImage from '../../assets/landing-bg.png';
@@ -35,6 +35,21 @@ const Result: React.FC = () => {
   const [randomMessage, setRandomMessage] = useState<string>("");
   const [zodiac, setZodiac] = useState<string>("");
 
+  const zodiacKo : {[key:string]:string}= {
+    aries: "양자리",
+    taurus: "황소자리",
+    gemini: "쌍둥이자리",
+    cancer: "게자리",
+    leo: "사자자리",
+    virgo: "처녀자리",
+    libra: "천칭자리",
+    scorpio: "전갈자리",
+    sagittarius: "사수자리",
+    capricorn: "염소자리",
+    aquarius: "물병자리",
+    pisces: "물고기자리"
+  };
+
 useEffect(() => {
   if (month && day) {
     const zodiacSign = getZodiacSign(Number(month), Number(day));
@@ -46,14 +61,6 @@ useEffect(() => {
     });
   }
 }, [month, day]);
-
-
-  const zodiacKo : {[key:string]:string}= {
-    aries: "양자리", taurus: "황소자리", gemini: "쌍둥이자리", cancer: "게자리",
-    leo: "사자자리", virgo: "처녀자리", libra: "천칭자리", scorpio: "전갈자리",
-    sagittarius: "사수자리", capricorn: "염소자리", aquarius: "물병자리", pisces: "물고기자리"
-  };
-
 
 
   useEffect(() => {
@@ -80,23 +87,24 @@ useEffect(() => {
 
   return (
     <Wrapper>
-      <img src={`/images/zodiac/${zodiac}.png`} alt={`${zodiac} 별자리`} />
-      <MessageBox>{ranking}등</MessageBox>
-      <MessageBox>{zodiacName}</MessageBox>
-      <MessageBox>{message?message:"운세를 불러오는 중"}</MessageBox>
+      <ZodiacImage src={`/images/zodiac/${zodiac}.png`} alt={`${zodiac} 별자리`} />
+      <RankingText>{ranking}등</RankingText>
+      <ZodiacNameText>{zodiacName}</ZodiacNameText>
+      <HoroscopeText>{message || '운세를 불러오는 중'}</HoroscopeText>
       
-      <TitleImage src={titleImage} alt="오늘의 운세 제목 이미지" />
+      
       <TopDecoration src={topImage} alt="장식 이미지 위" />
-       
       <MessageBox>{randomMessage}</MessageBox>
-
       <BottomDecoration src={bottomImage} alt="장식 이미지 아래" />
 
       <ButtonGroup>
-        <Button onClick={() => {
-          localStorage.removeItem("resultMessage");
-          navigate(PATHS.MAIN)
-          }}>다시하기</Button>
+        <Button
+          onClick={() => {
+            localStorage.removeItem("resultMessage");
+            navigate(PATHS.MAIN)
+            }}>
+              다시하기
+          </Button>
         <Button
           onClick={() => {
             if (navigator.share) {
@@ -133,9 +141,39 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-const TitleImage = styled.img`
-  width: 150px;
-  margin-bottom: 16px;
+// 별자리 이미지
+const ZodiacImage = styled.img`
+  width: 450px;
+  height: auto;
+  margin-bottom: 12px;
+`;
+
+// 등수 텍스트
+const RankingText = styled.div`
+  margin: 0 0 4px 0;
+  font-size: 2.3rem;
+  color: #fff;
+  font-family: 'HSBombaram3_Regular', sans-serif;
+`;
+
+// 별자리 이름
+const ZodiacNameText = styled.div`
+  margin: 0;
+  font-size: 1.7rem;
+  color: #fff;
+  font-family: 'HSBombaram3_Regular', sans-serif;
+`;
+
+// 별자리 메세지
+const HoroscopeText = styled.div`
+  margin: 10px 0 30px 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #fff;
+  text-align: center;
+  white-space: pre-line;
+  font-family: 'SUITE-Regular', sans-serif;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 `;
 
 const TopDecoration = styled.img`
