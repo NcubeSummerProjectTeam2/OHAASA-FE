@@ -1,4 +1,5 @@
 import React from 'react';
+import {useState} from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../constants/paths';
@@ -12,9 +13,18 @@ import nextBtnImg from '../../assets/nextButton.png';
 const BirthdayInput: React.FC = () => {
   const navigate = useNavigate();
 
+  const [month, setMonth] = useState<string>("");
+  const [day, setDay] = useState<string>("");
+
+
   const handleNextClick = () => {
-    navigate(PATHS.INPUT);
+    if(!month||!day){
+      alert("생년월일을 모두 입력하세요!");
+      return;
+    }
+    navigate(PATHS.INPUT,{state:{month,day}});
   };
+
 
   return (
     <Container>
@@ -24,14 +34,11 @@ const BirthdayInput: React.FC = () => {
       <InputContainer>
         <LineImage src={lineTopImg} alt="위 선" />
 
-        <Label>YEAR</Label>
-        <InputBox placeholder="YYYY" />
-
         <Label>MONTH</Label>
-        <InputBox placeholder="MM" />
+        <InputBox placeholder="MM" value={month} onChange={e => setMonth(e.target.value)}/>
 
         <Label>DAY</Label>
-        <InputBox placeholder="DD" />
+        <InputBox placeholder="DD" value={day} onChange={e => setDay(e.target.value)}/>
 
         <LineImage src={lineBottomImg} alt="아래 선" />
         

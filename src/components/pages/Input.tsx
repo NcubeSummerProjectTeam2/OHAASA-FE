@@ -1,15 +1,21 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../constants/paths';
 import styled from 'styled-components';
 
+
+
 const Input: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as { month?: string, day?: string } || {};
+  const { month, day } = state;
 
   return (
     <Wrapper>
       <Title>질문 페이지 (임시)</Title>
-      <ResultButton onClick={() => navigate(PATHS.RESULT)}>
+      <ResultButton onClick={() => navigate(PATHS.RESULT,{state:{month,day}})}>
         결과 확인하기
       </ResultButton>
     </Wrapper>

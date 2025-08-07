@@ -1,23 +1,53 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getRandomMessage } from '../../api/getRandomMessage';
 import { PATHS } from '../../constants/paths';
+import { getZodiacSign } from '../../utils/zodiac';
+import { getTodayHoroscope } from '../../api/getHoroscope';
+import { useEffect, useState } from "react";
 
 import bgImage from '../../assets/landing-bg.png';
 import topImage from '../../assets/lineTop2.png';
 import bottomImage from '../../assets/lineBottom2.png';
 import titleImage from '../../assets/resultTitle.png';
 
+
+
 const Result: React.FC = () => {
   const navigate = useNavigate();
-  const message = getRandomMessage();
+  const location = useLocation();
+  const randomMessage = getRandomMessage();
+
+  const state = location.state as {  month?: string, day?: string } || {};
+  const { month, day } = state;
+
+  if (!month || !day) {
+    navigate(PATHS.INPUT);
+    console.log("month:", month, "day:", day);
+
+    return null;
+  }
+
+  const [message, setMessage] = useState<string>("");
+
+  useEffect(() => {
+    if (month && day) {
+      const zodiac = getZodiacSign(Number(month), Number(day));
+      console.log("zodiac : ",zodiac); //별자리명 확인
+      getTodayHoroscope(zodiac).then(data => {
+        console.log("getTodayHoroscope result:", data); //결과 확인
+        setMessage(data?.horoscope_text || "오늘의 운세를 불러올 수 없습니다.");
+      });
+    }
+  }, [month, day]);
 
   return (
     <Wrapper>
       <TitleImage src={titleImage} alt="오늘의 운세 제목 이미지" />
       <TopDecoration src={topImage} alt="장식 이미지 위" />
-      <MessageBox>{message}</MessageBox>
+      <MessageBox>{randomMessage}</MessageBox>
+      <MessageBox>{message?message:"운세를 불러오는 중"}</MessageBox>
       <BottomDecoration src={bottomImage} alt="장식 이미지 아래" />
 
       <ButtonGroup>
