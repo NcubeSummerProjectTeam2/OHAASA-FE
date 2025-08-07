@@ -15,8 +15,6 @@ import bottomImage from '../../assets/lineBottom2.png';
 import titleImage from '../../assets/resultTitle.png';
 
 
-
-
 const Result: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,6 +33,20 @@ const Result: React.FC = () => {
   const [ranking, setRanking] = useState("");
   const [zodiacName, setZodiacName] = useState("");
   const [randomMessage, setRandomMessage] = useState<string>("");
+  const [zodiac, setZodiac] = useState<string>("");
+
+useEffect(() => {
+  if (month && day) {
+    const zodiacSign = getZodiacSign(Number(month), Number(day));
+    setZodiac(zodiacSign); // zodiac state에 저장
+    getTodayHoroscope(zodiacSign).then(data => {
+      setMessage(data.horoscope.horoscope_text || "오늘의 운세를 불러올 수 없습니다.");
+      setRanking(data.horoscope.ranking_no);
+      setZodiacName(zodiacKo[data.horoscope.zodiac]);
+    });
+  }
+}, [month, day]);
+
 
   const zodiacKo : {[key:string]:string}= {
     aries: "양자리", taurus: "황소자리", gemini: "쌍둥이자리", cancer: "게자리",
@@ -42,10 +54,12 @@ const Result: React.FC = () => {
     sagittarius: "사수자리", capricorn: "염소자리", aquarius: "물병자리", pisces: "물고기자리"
   };
 
+
+
   useEffect(() => {
     if (month && day) {
-      const zodiac = getZodiacSign(Number(month), Number(day));
-      console.log("zodiac : ",zodiac); //별자리명 확인
+      const zodiacSign = getZodiacSign(Number(month), Number(day));
+      setZodiac(zodiacSign);
       getTodayHoroscope(zodiac).then(data => {
         console.log("getTodayHoroscope result:", data); //결과 확인
         setMessage(data.horoscope.horoscope_text || "오늘의 운세를 불러올 수 없습니다.");
@@ -66,13 +80,15 @@ const Result: React.FC = () => {
 
   return (
     <Wrapper>
+      <img src={`/images/zodiac/${zodiac}.png`} alt={`${zodiac} 별자리`} />
+      <MessageBox>{ranking}등</MessageBox>
+      <MessageBox>{zodiacName}</MessageBox>
+      <MessageBox>{message?message:"운세를 불러오는 중"}</MessageBox>
+      
       <TitleImage src={titleImage} alt="오늘의 운세 제목 이미지" />
       <TopDecoration src={topImage} alt="장식 이미지 위" />
        
-      <MessageBox>{ranking}등</MessageBox>
-      <MessageBox>{zodiacName}</MessageBox>
       <MessageBox>{randomMessage}</MessageBox>
-      <MessageBox>{message?message:"운세를 불러오는 중"}</MessageBox>
 
       <BottomDecoration src={bottomImage} alt="장식 이미지 아래" />
 
