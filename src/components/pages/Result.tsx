@@ -151,7 +151,7 @@ const ZodiacNameText = styled.div`
 
 // 별자리 메세지
 const HoroscopeText = styled.div`
-  margin: 10px 0 30px 0;
+  margin: 10px 10px 30px 10px;
   font-size: 1rem;
   line-height: 1.6;
   color: #fff;
@@ -164,6 +164,7 @@ const HoroscopeText = styled.div`
 const TopDecoration = styled.img`
   width: 80%;
   max-width: 600px;
+  margin-top: 10px
   margin-bottom: 12px;
 `;
 
