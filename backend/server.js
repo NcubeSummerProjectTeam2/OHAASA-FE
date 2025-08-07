@@ -3,11 +3,13 @@ const cors = require("cors");
 const axios = require("axios");
 
 const app = express();
-app.use(cors({
-  origin: "https://ohaasa-fe.vercel.app", // 프론트 배포 주소
-  methods: ["GET", "POST"], 
-  credentials: true
-}));
+
+// CORS 설정 수정: 로컬 개발용(localhost:3000)과 배포용(vercel) 둘 다 허용
+const corsOptions = {
+  origin: ['http://localhost:3000', 'https://ohaasa-fe.vercel.app'],
+};
+
+app.use(cors(corsOptions)); // 수정된 CORS 설정 적용
 
 const DEEPL_API_KEY = "a3d2e945-8ec1-4dd4-a962-dc8accbebf90:fx";
 
