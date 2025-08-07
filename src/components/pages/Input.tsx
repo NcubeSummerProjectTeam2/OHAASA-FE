@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import QuestionPage from '../QuestionPage';
 import questions from '../../data/questions';
+import { useLocation } from 'react-router-dom';
+import { PATHS } from '../../constants/paths';
 
 type Answer = number | null;
 
@@ -12,6 +14,10 @@ const Input: React.FC = () => {
   const [answers, setAnswers] = useState<Answer[]>(Array(total).fill(null));
 
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const state = location.state as { month?: string, day?: string } || {};
+  const { month, day } = state;
 
   const handleSelect = (optionIndex: number) => {
     setAnswers(prev => {
@@ -26,7 +32,7 @@ const Input: React.FC = () => {
       setPage(p => p + 1);
     } else {
       navigate('/result', {
-        state: { answers, total },
+        state: { answers, total, month,day },
         replace: false,
       });
     }
