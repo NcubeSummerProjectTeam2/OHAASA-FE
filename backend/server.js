@@ -53,6 +53,7 @@ app.get("/api/horoscope", async (req, res) => {
     //번역된 메시지로 응답
     res.json({
       horoscope: {
+        zodiac:zodiac, //추가
         ...userHoroscope,
         horoscope_text: result.data.translations[0].text,
       }

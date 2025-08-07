@@ -19,7 +19,8 @@ export async function getTodayHoroscope(zodiac:string){
     const userHoroscope=data.horoscope;
     console.log('백엔드 응답 data : ', data);
 
-    return userHoroscope || null;
+    // return userHoroscope || null; //원래 코드
+    return data || null; // 추가
 
 
 }

@@ -33,6 +33,14 @@ const Result: React.FC = () => {
   }
 
   const [message, setMessage] = useState<string>("");
+  const [ranking, setRanking] = useState("");
+  const [zodiacName, setZodiacName] = useState("");
+  
+  const zodiacKo : {[key:string]:string}= {
+    aries: "양자리", taurus: "황소자리", gemini: "쌍둥이자리", cancer: "게자리",
+    leo: "사자자리", virgo: "처녀자리", libra: "천칭자리", scorpio: "전갈자리",
+    sagittarius: "사수자리", capricorn: "염소자리", aquarius: "물병자리", pisces: "물고기자리"
+  };
 
   useEffect(() => {
     if (month && day) {
@@ -40,16 +48,22 @@ const Result: React.FC = () => {
       console.log("zodiac : ",zodiac); //별자리명 확인
       getTodayHoroscope(zodiac).then(data => {
         console.log("getTodayHoroscope result:", data); //결과 확인
-        setMessage(data?.horoscope_text || "오늘의 운세를 불러올 수 없습니다.");
+        setMessage(data.horoscope.horoscope_text || "오늘의 운세를 불러올 수 없습니다.");
+        setRanking(data.horoscope.ranking_no); //추가
+        setZodiacName(zodiacKo[data.horoscope.zodiac]); //추가
       });
     }
   }, [month, day]);
+
+  console.log(' 렌더링할 값 : ', ranking,zodiacName,message); //추가
 
   return (
     <Wrapper>
       <TitleImage src={titleImage} alt="오늘의 운세 제목 이미지" />
       <TopDecoration src={topImage} alt="장식 이미지 위" />
-
+       
+      <MessageBox>{ranking}등</MessageBox>
+      <MessageBox>{zodiacName}</MessageBox>
       <MessageBox>{randomMessage}</MessageBox>
       <MessageBox>{message?message:"운세를 불러오는 중"}</MessageBox>
 
