@@ -19,20 +19,37 @@ const Input: React.FC = () => {
   const state = location.state as { month?: string, day?: string } || {};
   const { month, day } = state;
 
+  const [scores,setScores]=useState({
+    health : 0,
+    work : 0,
+    love : 0,
+    study : 0,
+    relation: 0,
+  });
+
   const handleSelect = (optionIndex: number) => {
     setAnswers(prev => {
       const next = [...prev];
       next[page - 1] = optionIndex;
       return next;
     });
+    const selectedPart = questions[page-1].options[optionIndex].part as keyof typeof scores;
+
+    if(!selectedPart) return ;
+    setScores(prev=>({
+      ...prev,
+      [selectedPart]: prev[selectedPart]+1,
+    }));
   };
+
+  
 
   const handleNext = () => {
     if (page < total) {
       setPage(p => p + 1);
     } else {
       navigate('/result', {
-        state: { answers, total, month,day },
+        state: { answers, total, month,day,scores },
         replace: false,
       });
     }

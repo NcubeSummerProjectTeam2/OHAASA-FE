@@ -21,8 +21,13 @@ const Result: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const state = location.state as {  month?: string, day?: string } || {};
-  const { month, day } = state;
+  const state = location.state as {  month?: string, day?: string,scores?:any } || {};
+  const { month, day ,scores} = state;
+
+  if (!scores) {
+    navigate(PATHS.INPUT);
+    return null;
+  }
 
   if (!month || !day) {
     navigate(PATHS.INPUT);
@@ -31,10 +36,12 @@ const Result: React.FC = () => {
     return null;
   }
 
-  const [message, setMessage] = useState<string>("");
+  const [zodiacMessage, setZodiacMessage] = useState<string>("");
   const [ranking, setRanking] = useState("");
   const [zodiacName, setZodiacName] = useState("");
   const [randomMessage, setRandomMessage] = useState<string>("");
+  const [zodiac, setZodiac] = useState<string>("");
+  const [fortuneMessage,setFortuneMessage]=useState("");
 
   const zodiacKo : {[key:string]:string}= {
     aries: "양자리", taurus: "황소자리", gemini: "쌍둥이자리", cancer: "게자리",
@@ -44,11 +51,11 @@ const Result: React.FC = () => {
 
   useEffect(() => {
     if (month && day) {
-      const zodiac = getZodiacSign(Number(month), Number(day));
-      console.log("zodiac : ",zodiac); //별자리명 확인
-      getTodayHoroscope(zodiac).then(data => {
+      const zodiacSign = getZodiacSign(Number(month), Number(day));
+      setZodiac(zodiacSign);
+      getTodayHoroscope(zodiacSign).then(data => {
         console.log("getTodayHoroscope result:", data); //결과 확인
-        setMessage(data.horoscope.horoscope_text || "오늘의 운세를 불러올 수 없습니다.");
+        setZodiacMessage(data.horoscope.horoscope_text || "오늘의 운세를 불러올 수 없습니다.");
         setRanking(data.horoscope.ranking_no); //추가
         setZodiacName(zodiacKo[data.horoscope.zodiac]); //추가
       });
@@ -56,23 +63,25 @@ const Result: React.FC = () => {
   }, [month, day]);
 
   useEffect(() => {
-    if (ranking) {
-      setRandomMessage(getRandomMessage(Number(ranking)));
+    if (scores&&ranking!==undefined) {
+      const fortuneMsg = getRandomMessage(scores,Number(ranking));
+      setFortuneMessage(fortuneMsg);
     }
-  }, [ranking]);
+  }, [scores,ranking]);
 
 
-  console.log(' 렌더링할 값 : ', ranking,zodiacName,message); //추가
+  console.log(' 렌더링할 값 : ', ranking,zodiacName,zodiacMessage,randomMessage); //추가
 
   return (
     <Wrapper>
+      <img src={`/images/zodiac/${zodiac}.png`} alt={`${zodiac} 별자리`}></img>
       <TitleImage src={titleImage} alt="오늘의 운세 제목 이미지" />
       <TopDecoration src={topImage} alt="장식 이미지 위" />
        
       <MessageBox>{ranking}등</MessageBox>
       <MessageBox>{zodiacName}</MessageBox>
-      <MessageBox>{randomMessage}</MessageBox>
-      <MessageBox>{message?message:"운세를 불러오는 중"}</MessageBox>
+      <MessageBox>{fortuneMessage}</MessageBox>
+      <MessageBox>{zodiacMessage?zodiacMessage:"운세를 불러오는 중"}</MessageBox>
 
       <BottomDecoration src={bottomImage} alt="장식 이미지 아래" />
 
@@ -86,7 +95,7 @@ const Result: React.FC = () => {
             if (navigator.share) {
               navigator.share({
                 title: '오하아사 결과',
-                text: message,
+                text: zodiacMessage,
                 url: window.location.href,
               });
             } else {
