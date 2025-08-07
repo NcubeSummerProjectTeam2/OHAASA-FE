@@ -62,20 +62,6 @@ useEffect(() => {
   }
 }, [month, day]);
 
-
-  useEffect(() => {
-    if (month && day) {
-      const zodiacSign = getZodiacSign(Number(month), Number(day));
-      setZodiac(zodiacSign);
-      getTodayHoroscope(zodiac).then(data => {
-        console.log("getTodayHoroscope result:", data); //결과 확인
-        setMessage(data.horoscope.horoscope_text || "오늘의 운세를 불러올 수 없습니다.");
-        setRanking(data.horoscope.ranking_no); //추가
-        setZodiacName(zodiacKo[data.horoscope.zodiac]); //추가
-      });
-    }
-  }, [month, day]);
-
   useEffect(() => {
     if (ranking) {
       setRandomMessage(getRandomMessage(Number(ranking)));
