@@ -82,6 +82,6 @@ app.get("/api/horoscope", async (req, res) => {
 });
 
 const port = process.env.PORT || 4000;
-app.listen(4000, () => {
-  console.log("백엔드 서버가 4000번 포트에서 실행 중!");
+app.listen(port, () => {
+  console.log("백엔드 서버가 ${port}번 포트에서 실행 중!");
 });
