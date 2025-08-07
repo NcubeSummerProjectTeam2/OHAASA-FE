@@ -14,8 +14,8 @@ const zodiacToNum: { [key: string]: string } = {
 };
 
 export async function getTodayHoroscope(zodiac: string) {
-  //const response = await fetch(`${import.meta.env.VITE_API_URL}/api/horoscope?zodiac=${zodiac}`);
-  const response = await fetch(`http://localhost:4000/api/horoscope?zodiac=${zodiac}`);
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/horoscope?zodiac=${zodiac}`);
+  //const response = await fetch(`http://localhost:4000/api/horoscope?zodiac=${zodiac}`);
   console.log("API URL:", import.meta.env.VITE_API_URL);
 
 
