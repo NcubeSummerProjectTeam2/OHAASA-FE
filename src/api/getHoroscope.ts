@@ -14,17 +14,11 @@ const zodiacToNum: { [key: string]: string } = {
 };
 
 export async function getTodayHoroscope(zodiac: string) {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/result`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ zodiac }), // 필요한 요청 데이터
-  });
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/horoscope?zodiac=${zodiac}`);
 
   const data = await response.json();
-  console.log('백엔드 응답 data:', data);
+  console.log("백엔드 응답 data :", data);
 
-  // return userHoroscope || null; // 원래 코드
-  return data || null; // 추가된 형태
+  return data || null;
+
 }
