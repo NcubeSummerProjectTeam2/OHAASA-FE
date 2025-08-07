@@ -3,7 +3,24 @@ const cors = require("cors");
 const axios = require("axios");
 
 const app = express();
-app.use(cors());
+
+// CORS 설정 수정: 로컬 개발용(localhost:3000)과 배포용(vercel) 둘 다 허용
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://ohaasa-fe.vercel.app"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 
 const DEEPL_API_KEY = "a3d2e945-8ec1-4dd4-a962-dc8accbebf90:fx";
 
@@ -64,6 +81,7 @@ app.get("/api/horoscope", async (req, res) => {
   }
 });
 
-app.listen(4000, () => {
-  console.log("백엔드 서버가 4000번 포트에서 실행 중!");
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+  console.log(`백엔드 서버가 ${port}번 포트에서 실행 중!`);
 });

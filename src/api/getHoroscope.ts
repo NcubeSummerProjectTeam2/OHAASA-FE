@@ -1,5 +1,5 @@
-const zodiacToNum:{[key:string]:string}={
-    aries: "01",
+const zodiacToNum: { [key: string]: string } = {
+  aries: "01",
   taurus: "02",
   gemini: "03",
   cancer: "04",
@@ -13,14 +13,20 @@ const zodiacToNum:{[key:string]:string}={
   pisces: "12"
 };
 
-export async function getTodayHoroscope(zodiac:string){
-    const response = await fetch(`http://localhost:4000/api/horoscope?zodiac=${zodiac}`);
-    const data = await response.json();
-    const userHoroscope=data.horoscope;
-    console.log('백엔드 응답 data : ', data);
+export async function getTodayHoroscope(zodiac: string) {
+  //const response = await fetch(`${import.meta.env.VITE_API_URL}/api/horoscope?zodiac=${zodiac}`);
+  const response = await fetch(`http://localhost:4000/api/horoscope?zodiac=${zodiac}`);
+  console.log("API URL:", import.meta.env.VITE_API_URL);
 
-    // return userHoroscope || null; //원래 코드
-    return data || null; // 추가
 
+  if (!response.ok) {
+    console.error("서버에서 오류 응답:", response.status);
+    throw new Error("서버 오류: " + response.status);
+  }
+
+  const data = await response.json();
+  console.log("백엔드 응답 data :", data);
+
+  return data || null;
 
 }

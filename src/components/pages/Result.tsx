@@ -8,7 +8,6 @@ import { getZodiacSign } from '../../utils/zodiac';
 import { getTodayHoroscope } from '../../api/getHoroscope';
 import { useEffect, useState } from "react";
 
-
 import bgImage from '../../assets/landing-bg.png';
 import topImage from '../../assets/lineTop2.png';
 import bottomImage from '../../assets/lineBottom2.png';
@@ -74,16 +73,17 @@ const Result: React.FC = () => {
 
   return (
     <Wrapper>
-      <img src={`/images/zodiac/${zodiac}.png`} alt={`${zodiac} 별자리`}></img>
-      <TitleImage src={titleImage} alt="오늘의 운세 제목 이미지" />
-      <TopDecoration src={topImage} alt="장식 이미지 위" />
-       
-      <MessageBox>{ranking}등</MessageBox>
-      <MessageBox>{zodiacName}</MessageBox>
-      <MessageBox>{fortuneMessage}</MessageBox>
-      <MessageBox>{zodiacMessage?zodiacMessage:"운세를 불러오는 중"}</MessageBox>
 
+      <ZodiacImage src={`/images/zodiac/${zodiac}.png`} alt={`${zodiac} 별자리`} />
+      <RankingText>{ranking}등</RankingText>
+      <ZodiacNameText>{zodiacName}</ZodiacNameText>
+      <HoroscopeText>{zodiacMessage|| '운세를 불러오는 중'}</HoroscopeText>
+      
+      
+      <TopDecoration src={topImage} alt="장식 이미지 위" />
+      <MessageBox>{fortuneMessage}</MessageBox>
       <BottomDecoration src={bottomImage} alt="장식 이미지 아래" />
+
 
       <ButtonGroup>
         <Button onClick={() => {
@@ -126,9 +126,39 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-const TitleImage = styled.img`
-  width: 150px;
-  margin-bottom: 16px;
+// 별자리 이미지
+const ZodiacImage = styled.img`
+  width: 450px;
+  height: auto;
+  margin-bottom: 12px;
+`;
+
+// 등수 텍스트
+const RankingText = styled.div`
+  margin: 0 0 4px 0;
+  font-size: 2.3rem;
+  color: #fff;
+  font-family: 'HSBombaram3_Regular', sans-serif;
+`;
+
+// 별자리 이름
+const ZodiacNameText = styled.div`
+  margin: 0;
+  font-size: 1.7rem;
+  color: #fff;
+  font-family: 'HSBombaram3_Regular', sans-serif;
+`;
+
+// 별자리 메세지
+const HoroscopeText = styled.div`
+  margin: 10px 0 30px 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #fff;
+  text-align: center;
+  white-space: pre-line;
+  font-family: 'SUITE-Regular', sans-serif;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 `;
 
 const TopDecoration = styled.img`
