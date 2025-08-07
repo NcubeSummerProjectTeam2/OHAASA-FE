@@ -20,7 +20,6 @@ import titleImage from '../../assets/resultTitle.png';
 const Result: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const randomMessage = getRandomMessage();
 
   const state = location.state as {  month?: string, day?: string } || {};
   const { month, day } = state;
@@ -35,7 +34,8 @@ const Result: React.FC = () => {
   const [message, setMessage] = useState<string>("");
   const [ranking, setRanking] = useState("");
   const [zodiacName, setZodiacName] = useState("");
-  
+  const [randomMessage, setRandomMessage] = useState<string>("");
+
   const zodiacKo : {[key:string]:string}= {
     aries: "양자리", taurus: "황소자리", gemini: "쌍둥이자리", cancer: "게자리",
     leo: "사자자리", virgo: "처녀자리", libra: "천칭자리", scorpio: "전갈자리",
@@ -54,6 +54,13 @@ const Result: React.FC = () => {
       });
     }
   }, [month, day]);
+
+  useEffect(() => {
+    if (ranking) {
+      setRandomMessage(getRandomMessage(Number(ranking)));
+    }
+  }, [ranking]);
+
 
   console.log(' 렌더링할 값 : ', ranking,zodiacName,message); //추가
 
