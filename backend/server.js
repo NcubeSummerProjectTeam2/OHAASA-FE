@@ -5,11 +5,22 @@ const axios = require("axios");
 const app = express();
 
 // CORS 설정 수정: 로컬 개발용(localhost:3000)과 배포용(vercel) 둘 다 허용
-const corsOptions = {
-  origin: ['http://localhost:3000', 'https://ohaasa-fe.vercel.app'],
-};
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://ohaasa-fe.vercel.app"
+];
 
-app.use(cors(corsOptions)); // 수정된 CORS 설정 적용
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 
 const DEEPL_API_KEY = "a3d2e945-8ec1-4dd4-a962-dc8accbebf90:fx";
 
