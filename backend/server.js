@@ -3,7 +3,10 @@ const cors = require("cors");
 const axios = require("axios");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://ohaasa-fe.vercel.app", // 프론트 배포 주소
+  credentials: true
+}));
 
 const DEEPL_API_KEY = "a3d2e945-8ec1-4dd4-a962-dc8accbebf90:fx";
 
